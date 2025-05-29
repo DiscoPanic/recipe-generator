@@ -44,5 +44,21 @@ async function generateRecipe() {
   }
 }
 
+function expressInterest(school) {
+  fetch('/api/interest', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ school })
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById('interest-result').innerText = `${school}: ${data.count} people are interested!`;
+  })
+  .catch(err => {
+    document.getElementById('interest-result').innerText = 'Something went wrong.';
+    console.error(err);
+  });
+}
+
 // Attach once
 document.getElementById('generate-button').addEventListener('click', generateRecipe);
